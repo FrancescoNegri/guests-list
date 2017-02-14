@@ -1,0 +1,17 @@
+{
+  "name": "progetto-just-eat-backend",
+  "version": "0.0.1",
+  "description": "Test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Francesco Negri",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.1",
+    "ip": "^1.1.4",
+    "pug": "^2.0.0-beta7"
+  }
+}
