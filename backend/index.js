@@ -46,6 +46,10 @@ app.get('/remove/:id', (req, res) => {
     res.send(dataManager.removeGuestFromGuestsList(req.params['id']));
 })
 
+app.get('/changeStatus/:id', (req, res) => {
+    res.send(dataManager.changeGuestStatus(req.params['id']));
+})
+
 app.post('/checkout', (req, res) => {
         
 })
@@ -67,8 +71,6 @@ fs.writeFile("../shared/startupData.json", JSON.stringify({ip: ip.address().toSt
 
     console.log("My IP is:", ip.address());
 });
-
-dataManager.removeGuestFromGuestsList(4);
 
 
 

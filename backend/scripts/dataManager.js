@@ -34,6 +34,23 @@ module.exports = class DataManager {
         })
         this.updateGuestsList();
     }
+
+    static changeGuestStatus(guestID) {
+        var a;
+        guests.forEach((guest) => {
+            if (guest['ID'] == guestID) {
+                a = guests[guests.indexOf(guest)];
+                var temp = guests[guests.indexOf(guest)];
+                if (temp['ARRIVED'] == 0) temp['ARRIVED'] = 1;
+                else temp['ARRIVED'] = 0;
+                guests[guests.indexOf(guest)] = temp;
+            }
+        })
+
+        this.updateGuestsList();
+
+        return a;
+    }
 };
 
 
