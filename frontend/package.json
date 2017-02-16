@@ -1,5 +1,5 @@
 {
-  "name": "progetto-just-eat-frontend",
+  "name": "guests-list-ariosto-spallanzani",
   "version": "0.0.1",
   "description": "",
   "main": "src/index.js",
@@ -15,9 +15,7 @@
     "react": "^15.3.2",
     "react-collapsible": "^1.2.1",
     "react-dom": "^15.3.2",
-    "react-router": "^2.8.1",
-    "react-button": "*",
-    "whatwg-fetch": "*"
+    "react-router": "^2.8.1"
   },
   "devDependencies": {
     "babel-core": "^6.17.0",

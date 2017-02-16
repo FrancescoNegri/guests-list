@@ -1,7 +1,6 @@
 import React from 'react';
 import './MainPage.scss';
 import "whatwg-fetch";
-const Button = require('react-button');
 import startupData from '../../../../shared/startupData.json';
 
 export default class MainPage extends React.Component {
@@ -74,12 +73,12 @@ export default class MainPage extends React.Component {
         if (guest['ARRIVED'] == 0) {
             text = 'NON ARRIVATO';
             color = 'yellow';
-            image = 'http://www.vivocafe.com.au/auto/thumbnail/persistent/article_images/smv-logo--tick.jpg';
+            image = 'https://img.clipartfest.com/6a44fc39e4a76cd767714a888be3d423_ticks-and-crosses-clipart-clipart-tick-and-cross_600-600.svg';
         }
         if (guest['ARRIVED'] == 1) {
             text = 'ARRIVATO';
             color = 'white';
-            image = 'https://img.clipartfest.com/6a44fc39e4a76cd767714a888be3d423_ticks-and-crosses-clipart-clipart-tick-and-cross_600-600.svg';
+            image = 'http://www.vivocafe.com.au/auto/thumbnail/persistent/article_images/smv-logo--tick.jpg';
         }
 
         //return (<ButtonComponent onPress={() => this.changeGuestStatus(guest)} text={text}></ButtonComponent>)
