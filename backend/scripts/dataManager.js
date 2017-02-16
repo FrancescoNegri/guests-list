@@ -26,15 +26,6 @@ module.exports = class DataManager {
         }
     }
 
-    //NON FUNZIONA
-    static removeGuestFromGuestsList(guestID) {
-
-        guests = guests.filter((el) => {
-            return el['ID'] !== guestID;
-        })
-        this.updateGuestsList();
-    }
-
     static changeGuestStatus(guestID) {
         var a;
         guests.forEach((guest) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import './MainPage.scss';
 import "whatwg-fetch";
-import Checkbox from 'rc-checkbox';
+const Button = require('react-button');
 import startupData from '../../../../shared/startupData.json';
 
 export default class MainPage extends React.Component {
@@ -9,10 +9,8 @@ export default class MainPage extends React.Component {
         super(props);
         this.state = { guests: [] };
         this.updateState = this.updateState.bind(this);
-        this.renderGuests = this.renderGuests.bind(this);
-        this.renderCheckBox = this.renderCheckBox.bind(this);
 
-        this.updateDataFromAPI(2000);
+        this.updateDataFromAPI(1000);
     }
 
     componentDidMount() {
@@ -42,9 +40,11 @@ export default class MainPage extends React.Component {
 
         this.state.guests.forEach((guest) => {
             let item = (
-                <div className="guest">
-                    <p>{guest['NAME'] + ' ' + guest['SURNAME'] + ' ' + guest['ID']}</p>
-                    {this.renderCheckBox(guest)}
+                <div className="guest" id={"guest-" + guest['ID']}>
+                    <p>{guest['NAME'] + ' ' + guest['SURNAME']}</p>
+                    {this.renderIfGuest(guest)}
+                    {this.renderAge(guest)}
+                    {this.renderCheckInButton(guest)}
                 </div>
             )
             guestsOut.push(item);
@@ -53,20 +53,38 @@ export default class MainPage extends React.Component {
         return guestsOut;
     }
 
-    //GESTISCI ESTERNI E STAFF
-
-    renderCheckBox(guest) {
+    renderAge(guest) {
         var text;
+        if (guest['ADULT'] == 0) text = '';
+        if (guest['ADULT'] == 1) text = '+18';
+        return <p>{text}</p>;
+    }
+
+    renderIfGuest(guest) {
+        var text = '';
+        if (guest['GUEST'] == 'E') text = 'ESTERNO';
+        if (guest['GUEST'] == 'S') text = 'STAFF';
+        return <p>{text}</p>;
+    }
+
+    renderCheckInButton(guest) {
+        var text = 'testo';
+        var color;
+        var image;
         if (guest['ARRIVED'] == 0) {
-            text = 'mucca';
+            text = 'NON ARRIVATO';
+            color = 'yellow';
+            image = 'http://www.vivocafe.com.au/auto/thumbnail/persistent/article_images/smv-logo--tick.jpg';
         }
         if (guest['ARRIVED'] == 1) {
-            text = 'pollo';
+            text = 'ARRIVATO';
+            color = 'white';
+            image = 'https://img.clipartfest.com/6a44fc39e4a76cd767714a888be3d423_ticks-and-crosses-clipart-clipart-tick-and-cross_600-600.svg';
         }
 
-        return (
-            <button onClick={() => {this.changeGuestStatus(guest)}}>{text}</button>
-        )
+        //return (<ButtonComponent onPress={() => this.changeGuestStatus(guest)} text={text}></ButtonComponent>)
+        return (<img src={image} onClick={() => this.changeGuestStatus(guest)} height="50" width="50" />)
+        //return (<Button theme={{ style: { background: color} }} onClick={() => this.changeGuestStatus(guest)}>{text}</Button>);
     }
 
     changeGuestStatus(guest) {
@@ -75,7 +93,7 @@ export default class MainPage extends React.Component {
                 return res.json()
             }).then((json) => {
             })
-        
+
     }
 
     updateDataFromAPI(interval) {
