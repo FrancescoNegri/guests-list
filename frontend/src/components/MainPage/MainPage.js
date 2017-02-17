@@ -12,7 +12,8 @@ export default class MainPage extends React.Component {
         this.state = {
             guests: [],
             filteredGuests: [],
-            searchValue: ''
+            searchValue: '',
+            isLoading: true
         };
         this.searchChange = this.searchChange.bind(this);
         this.updateState = this.updateState.bind(this);
@@ -77,7 +78,7 @@ export default class MainPage extends React.Component {
             guestsOut.push(item);
         });
 
-        if (guestsOut.length < 1) {
+        if (guestsOut.length < 1 && this.state.isLoading) {
             guestsOut = (<Spinner/>);
         }
 
@@ -130,6 +131,7 @@ export default class MainPage extends React.Component {
     updateDataFromAPI(interval) {
         window.setInterval(() => {
             this.getGuests();
+            this.setState({isLoading: false})
         }, interval)
     }
 
