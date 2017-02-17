@@ -56,9 +56,11 @@ export default class MainPage extends React.Component {
     render() {
         return (
             <div id="MainPage">
-                <h1>Guests List</h1>
+                <h1 className="page-header">Guests List</h1>
+                <button className="btn btn-success">Aggiungi Persona</button>
+                <br/>
                 <SearchBar value={this.state.searchValue} onChange={this.searchChange}/>
-                {this.renderGuests()}
+                <div>{this.renderGuests()}</div>
             </div>
         )
     }
@@ -68,8 +70,8 @@ export default class MainPage extends React.Component {
 
         this.state.filteredGuests.forEach((guest) => {
             let item = (
-                <div className="guest" id={"guest-" + guest['ID']}>
-                    <p>{guest['NAME'] + ' ' + guest['SURNAME']}</p>
+                <div className="guest panel-body" id={"guest-" + guest['ID']}>
+                    <p className="left">{guest['NAME'] + ' ' + guest['SURNAME']}</p>
                     {this.renderIfGuest(guest)}
                     {this.renderAge(guest)}
                     {this.renderCheckInButton(guest)}
@@ -86,36 +88,34 @@ export default class MainPage extends React.Component {
     }
 
     renderAge(guest) {
-        var text;
-        if (guest['ADULT'] == 0) text = '';
-        if (guest['ADULT'] == 1) text = '+18';
+        let text;
+        text = (guest['ADULT'] == 0) ? '' : '+18';
         return <p>{text}</p>;
     }
 
     renderIfGuest(guest) {
-        var text = '';
+        let text = '';
         if (guest['GUEST'] == 'E') text = 'ESTERNO';
         if (guest['GUEST'] == 'S') text = 'STAFF';
         return <p>{text}</p>;
     }
 
     renderCheckInButton(guest) {
-        var text = 'testo';
-        var color;
-        var image;
+        let text, color, cls;
+
         if (guest['ARRIVED'] == 0) {
             text = 'NON ARRIVATO';
             color = 'yellow';
-            image = 'https://img.clipartfest.com/6a44fc39e4a76cd767714a888be3d423_ticks-and-crosses-clipart-clipart-tick-and-cross_600-600.svg';
+            cls = "glyphicon glyphicon-remove-circle";
         }
         if (guest['ARRIVED'] == 1) {
             text = 'ARRIVATO';
             color = 'white';
-            image = 'http://www.vivocafe.com.au/auto/thumbnail/persistent/article_images/smv-logo--tick.jpg';
+            cls = "glyphicon glyphicon-ok-circle";
         }
 
         //return (<ButtonComponent onPress={() => this.changeGuestStatus(guest)} text={text}></ButtonComponent>)
-        return (<img src={image} onClick={() => this.changeGuestStatus(guest)} height="50" width="50"/>)
+        return (<span className={cls} onClick={() => this.changeGuestStatus(guest)}/>)
         //return (<Button theme={{ style: { background: color} }} onClick={() => this.changeGuestStatus(guest)}>{text}</Button>);
     }
 

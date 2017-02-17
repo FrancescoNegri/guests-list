@@ -9,15 +9,100 @@
 #MainPage {
 
   text-align: center;
+  p{
+    display: inline;
+    margin-right: 5px;
+  }
 
-  .panel {
-    text-align: center;
+  .left{
+    float: left;
+    width: 50%;
+  }
 
-    input, button {
-      display: block;
-      margin: 1% 50%;
-      @include transform(translateX(-50%));
-      max-width: 400px;
+  .guest{
+    border: 1px solid #ccc;
+    width: 33%;
+    margin-left: 33%;
+    font-size: 25px;
+  }
+
+  button{
+    font-size: 20px;
+  }
+
+  .glyphicon-remove-circle,.glyphicon-ok-circle{
+    font-size: 30px;
+    float: right;
+  }
+
+  .glyphicon-remove-circle{
+    color: red;
+  }
+
+  .glyphicon-ok-circle{
+    color: green;
+  }
+
+
+  @media (max-width: 1025px) {
+
+    button{
+      font-size: 35px;
+    }
+
+    h1{
+      font-size: 50px;
+    }
+
+    input{
+      height: 60px;
+      font-size: 25px;
+      width: 400px;
+    }
+
+    .glyphicon-search{
+      font-size: 20px;
+    }
+
+    .guest{
+      width: 80%;
+      margin-left: 10%;
+      font-size: 40px;
+    }
+
+    .glyphicon-remove-circle,.glyphicon-ok-circle{
+      font-size: 45px;
+      float: right;
+    }
+
+  }
+
+
+  @media (max-width: 767px) {
+    .guest{
+      width: 90%;
+      font-size: 15px;
+      margin-left: 5%;
+    }
+
+    input{
+      height: 40px;
+      font-size: 20px;
+      width: 200px;
+    }
+
+    button{
+      font-size: 25px;
+    }
+
+    .glyphicon-search{
+      font-size: 15px;
+    }
+
+    p,.glyphicon-remove-circle,.glyphicon-ok-circle{
+      font-size: 22px;
     }
   }
+
+
 }
