@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import Spinner from '../Spinner/Spinner';
+import {Link} from 'react-router';
 import includes from 'lodash/includes';
 import './MainPage.scss';
 import "whatwg-fetch";
@@ -57,7 +58,9 @@ export default class MainPage extends React.Component {
         return (
             <div id="MainPage">
                 <h1 className="page-header">Guests List</h1>
-                <button className="btn btn-success">Aggiungi Persona</button>
+                <Link to="/newGuest">
+                    <button className="btn btn-success">Aggiungi Persona</button>
+                </Link>
                 <br/>
                 <SearchBar value={this.state.searchValue} onChange={this.searchChange}/>
                 <div>{this.renderGuests()}</div>
