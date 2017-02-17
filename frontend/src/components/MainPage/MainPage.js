@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import Spinner from '../Spinner/Spinner';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import includes from 'lodash/includes';
 import './MainPage.scss';
 import "whatwg-fetch";
@@ -13,17 +13,30 @@ export default class MainPage extends React.Component {
         this.state = {
             guests: [],
             filteredGuests: [],
+            registeredGuests: 0,
             searchValue: '',
             isLoading: true
         };
         this.searchChange = this.searchChange.bind(this);
         this.updateState = this.updateState.bind(this);
 
-        this.updateDataFromAPI(1000);
+        this.updateDataFromAPI(200);
+        this.updateRegisteredGuestsCounter(1000);
     }
 
     componentDidMount() {
         this.getGuests();
+    }
+
+    updateRegisteredGuestsCounter(interval) {
+        window.setInterval(() => {
+            fetch('http://' + startupData['ip'] + ':4000/guestsCounter')
+            .then((res) => {
+                return res.json()
+            }).then((json) => {
+                this.setState({registeredGuests: json});
+            })
+        }, interval);
     }
 
     getGuests() {
@@ -31,14 +44,14 @@ export default class MainPage extends React.Component {
             .then((res) => {
                 return res.json()
             }).then((json) => {
-            this.updateState(json);
-        })
+                this.updateState(json);
+            })
     }
 
     searchChange(event) {
         const searchValue = event.target.value;
         const filteredGuests = this.filterGuest(this.state.guests, searchValue);
-        this.setState({searchValue, filteredGuests});
+        this.setState({ searchValue, filteredGuests });
 
     }
 
@@ -61,8 +74,10 @@ export default class MainPage extends React.Component {
                 <Link to="/newGuest">
                     <button className="btn btn-success">Aggiungi Persona</button>
                 </Link>
-                <br/>
-                <SearchBar value={this.state.searchValue} onChange={this.searchChange}/>
+                <br />
+                <SearchBar value={this.state.searchValue} onChange={this.searchChange} />
+                <br />
+                <p>{this.state.registeredGuests + "/" + this.state.guests.length}</p>
                 <div>{this.renderGuests()}</div>
             </div>
         )
@@ -84,7 +99,7 @@ export default class MainPage extends React.Component {
         });
 
         if (guestsOut.length < 1 && this.state.isLoading) {
-            guestsOut = (<Spinner/>);
+            guestsOut = (<Spinner />);
         }
 
         return guestsOut;
@@ -118,7 +133,7 @@ export default class MainPage extends React.Component {
         }
 
         //return (<ButtonComponent onPress={() => this.changeGuestStatus(guest)} text={text}></ButtonComponent>)
-        return (<span className={cls} onClick={() => this.changeGuestStatus(guest)}/>)
+        return (<span className={cls} onClick={() => this.changeGuestStatus(guest)} />)
         //return (<Button theme={{ style: { background: color} }} onClick={() => this.changeGuestStatus(guest)}>{text}</Button>);
     }
 
@@ -127,20 +142,20 @@ export default class MainPage extends React.Component {
             .then((res) => {
                 return res.json()
             }).then((json) => {
-        })
+            })
 
     }
 
     updateDataFromAPI(interval) {
         window.setInterval(() => {
             this.getGuests();
-            this.setState({isLoading: false})
+            this.setState({ isLoading: false })
         }, interval)
     }
 
     updateState(json) {
         const filteredGuests = this.filterGuest(this.state.guests, this.state.searchValue);
-        this.setState({guests: json, filteredGuests});
+        this.setState({ guests: json, filteredGuests });
     }
 }
 

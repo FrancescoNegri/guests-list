@@ -28,7 +28,7 @@ app.use(function (req, res, next) {
         + currentdate.getSeconds();
 
 
-    console.log(datetime, '- Request:', req.method, '-', req.url);
+    if (req.url !== '/') console.log(datetime, '- Request:', req.method, '-', req.url);
 
     next();
 });
@@ -42,18 +42,14 @@ app.get('/add/:name/:surname/:adult/:guest', (req, res) => {
     res.send(dataManager.addGuestToGuestsList({NAME: req.params['name'], SURNAME: req.params['surname'], 'ADULT': Number.parseInt(req.params['adult']), 'GUEST': req.params['guest'], 'ARRIVED': 0}));
 })
 
-app.get('/remove/:id', (req, res) => {
-    console.log(req.params);
-    res.send(dataManager.removeGuestFromGuestsList(req.params['id']));
-})
-
 app.get('/changeStatus/:id', (req, res) => {
     res.send(dataManager.changeGuestStatus(req.params['id']));
 })
 
-app.post('/checkout', (req, res) => {
-        
+app.get('/guestsCounter', (req, res) => {
+    res.send(dataManager.getRegisteredGuestsCounter());
 })
+
 
 app.listen(port, () => {
     console.log('Server listening on port ' + port.toString());

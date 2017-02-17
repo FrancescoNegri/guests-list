@@ -26,6 +26,15 @@ module.exports = class DataManager {
         }
     }
 
+    static getRegisteredGuestsCounter() {
+        var count = 0;
+        guests.forEach((guest) => {
+            if (guest['ARRIVED'] == 1) count++;
+        });
+
+        return count.toString();
+    }
+
     static changeGuestStatus(guestID) {
         var a;
         guests.forEach((guest) => {
