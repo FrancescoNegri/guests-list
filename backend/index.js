@@ -37,8 +37,9 @@ app.get('/', (req, res) => {
     res.send(dataManager.getGuests());
 })
 
-app.get('/add', (req, res) => {
-    res.send(dataManager.addGuestToGuestsList({NAME:'Anna', SURNAME:'Prova', 'ARRIVED': 0}));
+app.get('/add/:name/:surname/:adult/:guest', (req, res) => {
+    if (req.params['guest'] == '0') req.params['guest'] = "";
+    res.send(dataManager.addGuestToGuestsList({NAME: req.params['name'], SURNAME: req.params['surname'], 'ADULT': Number.parseInt(req.params['adult']), 'GUEST': req.params['guest'], 'ARRIVED': 0}));
 })
 
 app.get('/remove/:id', (req, res) => {
