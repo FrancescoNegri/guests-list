@@ -1,4 +1,6 @@
 import React from 'react';
+import SearchBar from '../SearchBar/SearchBar';
+import includes from 'lodash/includes';
 import './MainPage.scss';
 import "whatwg-fetch";
 import startupData from '../../../../shared/startupData.json';
@@ -6,10 +8,15 @@ import startupData from '../../../../shared/startupData.json';
 export default class MainPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { guests: [] };
+        this.state = { 
+            guests: [] ,
+            filteredGuests:[],
+            searchValue:''
+        };
+        this.searchChange = this.searchChange.bind(this);
         this.updateState = this.updateState.bind(this);
 
-        this.updateDataFromAPI(1000);
+        this.updateDataFromAPI(100000);
     }
 
     componentDidMount() {
@@ -25,10 +32,29 @@ export default class MainPage extends React.Component {
             })
     }
 
+    searchChange(event){
+        const searchValue = event-target.value;
+        this.setState({searchValue})
+
+    }
+
+    filterGuest(arr, string) {
+        let results = [];
+
+        arr.map(guest => {
+            if (includes((`${guest['NAME']} ${guest['SURNAME']}`).toLowerCase(), string.toLowerCase())) {
+                results.push(guest);
+            }
+        });
+
+        return results;
+    }
+
     render() {
         return (
             <div id="MainPage">
                 <h1>Guests List</h1>
+                <SearchBar value={this.state.searchValue} onChange={this.searchChange}/>
                 {this.renderGuests()}
             </div>
         )
@@ -37,7 +63,7 @@ export default class MainPage extends React.Component {
     renderGuests() {
         let guestsOut = [];
 
-        this.state.guests.forEach((guest) => {
+        this.state.filteredGuests.forEach((guest) => {
             let item = (
                 <div className="guest" id={"guest-" + guest['ID']}>
                     <p>{guest['NAME'] + ' ' + guest['SURNAME']}</p>
@@ -102,7 +128,7 @@ export default class MainPage extends React.Component {
     }
 
     updateState(json) {
-        this.setState({ guests: json });
+        this.setState({ guests: json ,filteredGuests:json});
     }
 }
 

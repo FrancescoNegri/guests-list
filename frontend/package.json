@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "lodash": "^4.17.4",
     "react": "^15.3.2",
     "react-collapsible": "^1.2.1",
     "react-dom": "^15.3.2",

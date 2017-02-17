@@ -1,0 +1,10 @@
+.search-bar {
+  display: inline-table;
+  margin: 1.5% 0;
+  width: 20%;
+  min-width: 200px;
+
+  @media(max-width: 767px) {
+    margin-bottom: 5%;
+  }
+}
