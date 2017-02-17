@@ -13,15 +13,15 @@ export default class NewGuestPage extends React.Component {
             <div id="NewGuestPage">
                 <h1>Aggiungi una nuova persona alla lista!</h1>
                 <input id="name" placeholder="Nome" type="text" />
-                <br/>
+                <br />
                 <input id="surname" placeholder="Cognome" type="text" />
                 <fieldset>
-                    <input id="adult" type="checkbox"/>Maggiorenne +18
-                    <br/>
-                    <input id="guest" type="checkbox"/>Esterno
+                    <input id="adult" type="checkbox" />Maggiorenne +18
+                    <br />
+                    <input id="guest" type="checkbox" />Esterno
                 </fieldset>
                 <button onClick={() => this.createGuest()}>Aggiungi</button>
-                <br/>
+                <br />
                 <button onClick={() => this.back()}>Annulla</button>
             </div>
         )
@@ -40,13 +40,16 @@ export default class NewGuestPage extends React.Component {
             if (document.getElementById('adult').checked) adult = '1';
             if (document.getElementById('guest').checked) guest = 'E';
 
-            var out = {NAME: name, SURNAME: surname, ADULT: adult, GUEST: guest};
+            var out = { NAME: name, SURNAME: surname, ADULT: adult, GUEST: guest };
             this.uploadGuest(out);
         }
     }
 
     uploadGuest(guestJSON) {
-        
+        fetch('http://' + startupData['ip'] + ':4000/add/' + guestJSON['NAME'] + '/' + guestJSON['SURNAME'] + '/' + guestJSON['ADULT'] + '/' + guestJSON['GUEST'])
+            .then((res) => {
+                this.back();
+            })
     }
 }
 
