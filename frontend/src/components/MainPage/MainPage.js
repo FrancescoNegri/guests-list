@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchBar from '../SearchBar/SearchBar';
+import Spinner from '../Spinner/Spinner';
 import includes from 'lodash/includes';
 import './MainPage.scss';
 import "whatwg-fetch";
@@ -74,7 +75,11 @@ export default class MainPage extends React.Component {
                 </div>
             )
             guestsOut.push(item);
-        })
+        });
+
+        if (guestsOut.length < 1) {
+            guestsOut = (<Spinner/>);
+        }
 
         return guestsOut;
     }
