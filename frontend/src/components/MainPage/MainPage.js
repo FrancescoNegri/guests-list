@@ -8,15 +8,15 @@ import startupData from '../../../../shared/startupData.json';
 export default class MainPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { 
-            guests: [] ,
-            filteredGuests:[],
-            searchValue:''
+        this.state = {
+            guests: [],
+            filteredGuests: [],
+            searchValue: ''
         };
         this.searchChange = this.searchChange.bind(this);
         this.updateState = this.updateState.bind(this);
 
-        this.updateDataFromAPI(100000);
+        this.updateDataFromAPI(1000);
     }
 
     componentDidMount() {
@@ -28,13 +28,14 @@ export default class MainPage extends React.Component {
             .then((res) => {
                 return res.json()
             }).then((json) => {
-                this.updateState(json);
-            })
+            this.updateState(json);
+        })
     }
 
-    searchChange(event){
-        const searchValue = event-target.value;
-        this.setState({searchValue})
+    searchChange(event) {
+        const searchValue = event.target.value;
+        const filteredGuests = this.filterGuest(this.state.guests, searchValue);
+        this.setState({searchValue, filteredGuests});
 
     }
 
@@ -108,7 +109,7 @@ export default class MainPage extends React.Component {
         }
 
         //return (<ButtonComponent onPress={() => this.changeGuestStatus(guest)} text={text}></ButtonComponent>)
-        return (<img src={image} onClick={() => this.changeGuestStatus(guest)} height="50" width="50" />)
+        return (<img src={image} onClick={() => this.changeGuestStatus(guest)} height="50" width="50"/>)
         //return (<Button theme={{ style: { background: color} }} onClick={() => this.changeGuestStatus(guest)}>{text}</Button>);
     }
 
@@ -117,7 +118,7 @@ export default class MainPage extends React.Component {
             .then((res) => {
                 return res.json()
             }).then((json) => {
-            })
+        })
 
     }
 
@@ -128,7 +129,8 @@ export default class MainPage extends React.Component {
     }
 
     updateState(json) {
-        this.setState({ guests: json ,filteredGuests:json});
+        const filteredGuests = this.filterGuest(this.state.guests, this.state.searchValue);
+        this.setState({guests: json, filteredGuests});
     }
 }
 
