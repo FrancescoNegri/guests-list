@@ -20,7 +20,7 @@ export default class MainPage extends React.Component {
         this.searchChange = this.searchChange.bind(this);
         this.updateState = this.updateState.bind(this);
 
-        this.updateDataFromAPI(200);
+        this.updateDataFromAPI(500);
         this.updateRegisteredGuestsCounter(1000);
     }
 

@@ -15,7 +15,7 @@ export default class NewGuestPage extends React.Component {
                 <input id="name" placeholder="Nome" type="text" />
                 <br />
                 <input id="surname" placeholder="Cognome" type="text" />
-                <fieldset>
+                <fieldset className="checkboxes">
                     <input id="adult" type="checkbox" />Maggiorenne +18
                     <br />
                     <input id="guest" type="checkbox" />Esterno
@@ -43,6 +43,7 @@ export default class NewGuestPage extends React.Component {
             var out = { NAME: name, SURNAME: surname, ADULT: adult, GUEST: guest };
             this.uploadGuest(out);
         }
+        else alert('Riempi tutti i campi!');
     }
 
     uploadGuest(guestJSON) {

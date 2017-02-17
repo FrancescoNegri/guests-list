@@ -9,6 +9,21 @@
 #NewGuestPage {
 
   text-align: center;
+  font-size: 20px;
+
+  input, button {
+    margin-top: 25px;
+  }
+  
+  .checkboxes {
+    transform: scale(1.2);
+  }
+
+  button {
+    font-size: 40px;
+    width: 200px;
+    height: 60px;
+  }
 
   .panel {
     text-align: center;
