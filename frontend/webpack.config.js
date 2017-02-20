@@ -58,7 +58,7 @@ const config = {
             filename: 'vendor.js'
         }),
         new HtmlWebpackPlugin({
-            title: "progetto Just-Eat",
+            title: "Guest List",
             inject: false,
             template: require("html-webpack-template"),
             appMountId: "root",
@@ -66,6 +66,7 @@ const config = {
                 viewport: 'width=device-width, initial-scale=1.0'
             },
             links: [
+                "./vendor/css/bootstrap.min.css",
                 "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
             ],
             scripts: [

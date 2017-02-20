@@ -20,8 +20,8 @@ export default class MainPage extends React.Component {
         this.searchChange = this.searchChange.bind(this);
         this.updateState = this.updateState.bind(this);
 
-        this.updateDataFromAPI(500);
-        this.updateRegisteredGuestsCounter(1000);
+        this.updateDataFromAPI(100);
+        this.updateRegisteredGuestsCounter(2000);
     }
 
     componentDidMount() {
@@ -30,13 +30,17 @@ export default class MainPage extends React.Component {
 
     updateRegisteredGuestsCounter(interval) {
         window.setInterval(() => {
-            fetch('http://' + startupData['ip'] + ':4000/guestsCounter')
+            this.getCounter();
+        }, interval);
+    }
+
+    getCounter() {
+        fetch('http://' + startupData['ip'] + ':4000/guestsCounter')
             .then((res) => {
                 return res.json()
             }).then((json) => {
-                this.setState({registeredGuests: json});
+                this.setState({ registeredGuests: json });
             })
-        }, interval);
     }
 
     getGuests() {
@@ -70,7 +74,7 @@ export default class MainPage extends React.Component {
     render() {
         return (
             <div id="MainPage">
-                <h1 className="page-header">Guests List</h1>
+                <h1 className="page-header">Guest List</h1>
                 <Link to="/newGuest">
                     <button className="btn btn-success">Aggiungi Persona</button>
                 </Link>
@@ -142,8 +146,8 @@ export default class MainPage extends React.Component {
             .then((res) => {
                 return res.json()
             }).then((json) => {
+                this.getCounter();
             })
-
     }
 
     updateDataFromAPI(interval) {
